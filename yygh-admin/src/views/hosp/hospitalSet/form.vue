@@ -58,7 +58,7 @@ export default {
           type: "success",
           message: "添加成功!"
         }); //跳转列表页面，使用路由跳转方式实现
-        this.$router.push({ path: "/hosp/hospital/list" });
+        this.$router.push({ path: "/hosp/hospitalSet/list" });
       });
     },
     //根据id查询
@@ -75,7 +75,7 @@ export default {
           type: "success",
           message: "修改成功!"
         }); //跳转列表页面，使用路由跳转方式实现
-        this.$router.push({ path: "/hospSet/list" });
+        this.$router.push({ path: "/hosp/hospitalSet/list" });
       });
     }
   }

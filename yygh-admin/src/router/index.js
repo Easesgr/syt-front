@@ -55,6 +55,12 @@ export const constantRouterMap = [
         component: () => import("@/views/hosp/hospitalSet/form"),
         meta: { title: "编辑", noCache: true },
         hidden: true
+      },
+      {
+        path: "hospital/list",
+        name: "医院列表",
+        component: () => import("@/views/hosp/hospital/list"),
+        meta: { title: "医院列表", icon: "table" }
       }
     ]
   },
