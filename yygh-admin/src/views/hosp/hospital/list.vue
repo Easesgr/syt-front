@@ -75,6 +75,28 @@
       <el-table-column prop="createTime" label="创建时间" />
 
       <el-table-column label="操作" width="230" align="center">
+        <template slot-scope="scope">
+          <el-button
+            v-if="scope.row.status == 1"
+            type="primary"
+            size="mini"
+            @click="updateStatus(scope.row.id, 0)"
+            >下线</el-button
+          >
+          <el-button
+            v-if="scope.row.status == 0"
+            type="danger"
+            size="mini"
+            @click="updateStatus(scope.row.id, 1)"
+            >上线</el-button
+          >
+          <router-link :to="'/hosp/hospital/schedule/' + scope.row.hoscode">
+            <el-button type="primary" size="mini">排班</el-button>
+          </router-link>
+          <router-link :to="'/hosp/hospital/show/' + scope.row.id">
+            <el-button type="primary" size="mini">查看</el-button>
+          </router-link>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -110,9 +132,7 @@ export default {
   }, // 生命周期函数：内存准备完毕，页面尚未渲染
 
   created() {
-    console.log("list created......");
     this.fetchData();
-
     hospitalApi.findByDictCode("Province").then(response => {
       this.provinceList = response.data;
     });
@@ -153,6 +173,23 @@ export default {
     },
     cityChanged(val) {
       this.$set(this.searchObj, this.searchObj.cityCode, val);
+    },
+    // 根据id更新状态信息
+    updateStatus(id, status) {
+      hospitalApi.updateById(id, status).then(res => {
+        if (status == 1) {
+          this.$message({
+            message: "上线成功",
+            type: "success"
+          });
+        } else {
+          this.$message({
+            message: "下线成功",
+            type: "success"
+          });
+        }
+        this.fetchData();
+      });
     }
   }
 };

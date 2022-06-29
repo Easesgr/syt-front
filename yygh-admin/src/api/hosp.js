@@ -20,5 +20,39 @@ export default {
       url: `/admin/cmn/dict/findChildData/${dictCode}`,
       method: "get"
     });
+  },
+  updateById(id, status) {
+    return request({
+      url: `/admin/hosp/hospital/updateStatus/${id}/${status}`,
+      method: "get"
+    });
+  },
+  //查看医院详情
+  getHospById(id) {
+    return request({
+      url: `/admin/hosp/hospital/show//${id}`,
+      method: "get"
+    });
+  },
+  // 查询科室信息
+  getDeptByHoscode(hoscode) {
+    return request({
+      url: `/admin/hosp/department/list/${hoscode}`,
+      method: "get"
+    });
+  },
+  // 根据医院编号和科室编号获取科室信息
+  getScheduleRule(page, limit, hoscode, depcode) {
+    return request({
+      url: `/admin/hosp/schedule/getScheduleRule/${page}/${limit}/${hoscode}/${depcode}`,
+      method: "get"
+    });
+  },
+  //查询排班详情
+  getScheduleDetail(hoscode, depcode, workDate) {
+    return request({
+      url: `/admin/hosp/schedule/getScheduleDetail/${hoscode}/${depcode}/${workDate}`,
+      method: "get"
+    });
   }
 };

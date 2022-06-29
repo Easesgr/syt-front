@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import hospset from "@/api/hosp/hospitalSet";
+import hospset from "@/api/hospitalSet";
 export default {
   data() {
     return {

@@ -84,7 +84,7 @@
   </div>
 </template>
 <script>
-import hospitalSetApi from "@/api/hosp/hospitalSet";
+import hospitalSetApi from "@/api/hospitalSet";
 export default {
   // 定义数据模型
   data() {
