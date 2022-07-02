@@ -12,12 +12,12 @@
     >
     <el-table
       :data="list"
+      :load="getChildrens"
+      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       style="width: 100%"
       row-key="id"
       border
       lazy
-      :load="getChildrens"
-      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column label="名称" width="230" align="left">
         <template slot-scope="scope">
@@ -41,7 +41,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="导入" :visible.sync="dialogImportVisible" width="480px">
+    <el-dialog :visible.sync="dialogImportVisible" title="导入" width="480px">
       <el-form label-position="right" label-width="170px">
         <el-form-item label="文件">
           <el-upload
@@ -71,7 +71,7 @@ import dict from "@/api/dict";
 export default {
   data() {
     return {
-      list: [], //数据字典列表数组
+      list: [], // 数据字典列表数组
       dialogImportVisible: false
     };
   },
@@ -79,7 +79,7 @@ export default {
     this.getDictList(1);
   },
   methods: {
-    //数据字典列表
+    // 数据字典列表
     getDictList(id) {
       dict.dictList(id).then(response => {
         this.list = response.data;
