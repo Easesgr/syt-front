@@ -326,7 +326,6 @@ export default {
       hospApi
         .getPageList(this.page, this.limit, this.searchObj)
         .then((response) => {
-          console.log(response);
           for (let i in response.data.content) {
             this.list.push(response.data.content[i]);
           }

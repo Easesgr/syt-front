@@ -1,5 +1,6 @@
 import axios from "axios";
 import { MessageBox, Message } from "element-ui";
+import cookie from "js-cookie";
 // 创建axios实例
 const service = axios.create({
   baseURL: "http://localhost",
@@ -9,6 +10,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // token 先不处理，后续使用时在完善
+    if (cookie.get("token")) {
+      config.headers["token"] = cookie.get("token");
+    }
     return config;
   },
   (err) => {
@@ -18,15 +22,19 @@ service.interceptors.request.use(
 // http response 拦截器
 service.interceptors.response.use(
   (response) => {
-    if (response.data.code !== 200) {
-      Message({
-        message: response.data.message,
-        type: "error",
-        duration: 5 * 1000,
-      });
-      return Promise.reject(response.data);
+    if (response.data.code === 208) {
+      loginEvent.$emit("loginDialogEvent");
     } else {
-      return response.data;
+      if (response.data.code !== 200) {
+        Message({
+          message: response.data.message,
+          type: "error",
+          duration: 5 * 1000,
+        });
+        return Promise.reject(response.data);
+      } else {
+        return response.data;
+      }
     }
   },
   (error) => {

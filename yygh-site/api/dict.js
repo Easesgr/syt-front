@@ -6,4 +6,11 @@ export default {
       method: "get",
     });
   },
+
+  findChildData(value) {
+    return request({
+      url: `/admin/cmn/dict/findChildData/${value}`,
+      method: "get",
+    });
+  },
 };
